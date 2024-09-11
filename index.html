@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Engagement Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #45275b;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background-image: radial-gradient(circle at top right, rgb(36, 9, 119) 0%, rgb(36, 9, 119) 48%,rgb(72, 7, 149) 48%, rgb(72, 7, 149) 53%,rgb(109, 5, 178) 53%, rgb(109, 5, 178) 56%,rgb(145, 2, 208) 56%, rgb(145, 2, 208) 69%,rgb(181, 0, 237) 69%, rgb(181, 0, 237) 100%);
+        }
+
+        header {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            
+            background-image: radial-gradient(circle at top right, rgb(36, 9, 119) 0%, rgb(36, 9, 119) 48%,rgb(72, 7, 149) 48%, rgb(72, 7, 149) 53%,rgb(109, 5, 178) 53%, rgb(109, 5, 178) 56%,rgb(145, 2, 208) 56%, rgb(145, 2, 208) 69%,rgb(181, 0, 237) 69%, rgb(181, 0, 237) 100%);
+        }
+
+        header img {
+            height: 70px;
+            margin-right: 15px;
+            margin-left: 25px;
+            border-radius: 50%;
+        }
+
+        header h2 {
+            font-size: 1.5em;
+            margin: 0;
+            margin-top: 8px;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .login-signup-button {
+            background-color: white;
+            color: #45275b;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-right: 25px;
+            margin-left: 700px;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            float: right;
+        }
+
+        .login-signup-button:hover {
+            background-color: #f1f1f1;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 50px;
+        }
+
+        .text-section {
+            max-width: 50%;
+        }
+
+        .text-section h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .request-demo-button {
+            background-color: #ffffff;
+            color: #45275b;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .images-section {
+            position: relative;
+            width: 450px;
+            height: 320px;
+        }
+
+        .images-section img {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            object-fit: cover;
+            transition: transform 0.3s ease, z-index 0.3s ease;
+        }
+
+        .images-section img:nth-child(1) {
+            top: 0;
+            left: 0;
+            z-index: 5;
+        }
+
+        .images-section img:nth-child(2) {
+            top: 30px;
+            left: 130px;
+            z-index: 4;
+        }
+
+        .images-section img:nth-child(3) {
+            top: 60px;
+            left: 260px;
+            z-index: 3;
+        }
+
+        .images-section img:nth-child(4) {
+            top: 160px;
+            left: 50px;
+            z-index: 2;
+        }
+
+        .images-section img:nth-child(5) {
+            top: 190px;
+            left: 180px;
+            z-index: 1;
+        }
+
+        .images-section img:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        
+       
+    </style>
+</head>
+<body>
+    <header>
+        <img src="./images/logo.jpg" alt="Logo">
+        <h2>AlumniConnect</h2>
+        <div class="nav-right">
+            <button class="login-signup-button"><a href="login.html" style="text-decoration: none;">Login/Signup</a></button>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="text-section">
+            <h1>Inspiring Success: Alumni Guiding the Next Generation of Students</h1>
+            <!-- <button class="request-demo-button">Request a Demo</button> -->
+        </div>
+        <div class="images-section">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Alumni 1">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Alumni 2">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Alumni 3">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Alumni 4">
+            <img src="https://randomuser.me/api/portraits/men/34.jpg" alt="Alumni 5">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: radial-gradient(circle at 23% 4%, hsla(350,0%,85%,0.1) 0%, hsla(350,0%,85%,0.1) 11%,transparent 11%, transparent 40%,transparent 40%, transparent 100%),radial-gradient(circle at 55% 100%, hsla(350,0%,85%,0.1) 0%, hsla(350,0%,85%,0.1) 74%,transparent 74%, transparent 87%,transparent 87%, transparent 100%),radial-gradient(circle at 91% 68%, hsla(350,0%,85%,0.1) 0%, hsla(350,0%,85%,0.1) 82%,transparent 82%, transparent 84%,transparent 84%, transparent 100%),radial-gradient(circle at 60% 53%, hsla(350,0%,85%,0.1) 0%, hsla(350,0%,85%,0.1) 66%,transparent 66%, transparent 85%,transparent 85%, transparent 100%),radial-gradient(circle at 13% 90%, hsla(350,0%,85%,0.1) 0%, hsla(350,0%,85%,0.1) 10%,transparent 10%, transparent 11%,transparent 11%, transparent 100%),linear-gradient(0deg, rgb(147, 89, 251),rgb(77, 10, 183));
+        }
+        
+        .container {
+            background-color: #e0bbef;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+            color: #4a0072;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #4a0072;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #b39ddb;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .login-btn {
+            background-color: #7e57c2;
+        }
+        
+        .google-btn {
+            background-color: #9575cd;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .google-btn img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        
+        .signup-link {
+            color: #ab47bc;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+        
+        .signup-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        p {
+            margin: 0;
+            color: #4a0072;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login Form</h2>
+        <form action="#" method="POST">
+            <div class="input-group">
+                <label for="regnumber">Registration Number:</label>
+                <input type="text" id="regnumber" name="regnumber" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-btn"><a href="std-success-stories.html" style="text-decoration: none; color:white">Login</a></button> 
+            <br><br>OR<br><br>
+            <button type="button" class="google-btn">
+                <img src="./images/google-logo.jpg" alt="Google Logo">
+                Continue with Google
+            </button>
+            <div class="signup-container">
+                <p>Don't have an account?</p>
+                <a href="student-signup.html" class="signup-link">Sign Up</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

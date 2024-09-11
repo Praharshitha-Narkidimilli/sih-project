@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Portal - Job Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Light gray background */
+            color: #333;
+            display: flex;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #2c3e50; /* Dark gray-blue */
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 28px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Menu Bar Symbol (Hamburger) */
+        .menu-bar {
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #e0e0e0; /* Light gray background */
+            padding: 20px;
+            color: #333;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: -270px; /* Hide the sidebar initially */
+            overflow-y: auto;
+            z-index: 999;
+            transition: left 0.3s ease; /* Slide-in effect */
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .sidebar h2 {
+            margin-top: 200;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+
+        .sidebar a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 20px 20px;
+            margin: 10px 0;
+            background-color: #d3d3d3; /* Slightly darker gray */
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover {
+            background-color: #b0bec5; /* Muted blue-gray */
+            color: #000;
+        }
+
+        .sidebar a span {
+            margin-right: 5px;
+        }
+
+        .main-content {
+            margin-left: 30px;
+            padding: 40px;
+            background-color: white;
+            margin-top: 90px;
+            border-radius: 8px;
+            height: 900px;
+            flex: 1;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: margin-left 0.3s ease;
+            min-height: calc(100vh - 100px); /* Adjust content height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* Add Job Container */
+        .job-container {
+            display: none; /* Hidden initially */
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            flex-grow: 1;
+        }
+
+        .job-container h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .job-container label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .job-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 20px;
+            gap: 0;
+        }
+
+        .buttons button {
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: auto;
+        }
+
+        .buttons button#addJob {
+            background-color: #007bff; /* Blue */
+            color: white;
+            width: auto;
+        }
+
+        .buttons button#addJob:hover {
+            background-color: #0069d9; /* Darker blue */
+        }
+
+        .buttons button#postJob {
+            background-color: #688eaf; /* Gray */
+            color: white;
+            display: none; /* Hidden initially */
+            margin-top: 10px;
+            margin-left: 1100px;
+        }
+
+        .buttons button#postJob:hover {
+            background-color: #5a6268; /* Darker gray */
+        }
+
+        /* User Profile Menu */
+        .user-menu {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-menu .profile-icon {
+            background-color: #6c757d; /* Dark gray background */
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 30px;
+        }
+
+        /* Profile Dropdown */
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 60px;
+            background-color: white;
+            min-width: 150px;
+            font-size: 16px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0; /* Light gray */
+        }
+
+        /* Show the dropdown when the user clicks on Profile */
+        .user-menu.active .dropdown {
+            display: block;
+        }
+
+        /* Active Sidebar */
+        .sidebar.active {
+            left: 0; /* Slide in the sidebar */
+        }
+
+        .main-content.active {
+            margin-left: 270px; /* Adjust content margin when sidebar is open */
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                padding: auto;
+                margin-top: 120px;
+            }
+
+            .main-content.active {
+                margin-left: 0;
+            }
+
+            header {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span class="menu-bar" id="menu-bar">&#9776;</span> <!-- Hamburger Menu Symbol -->
+        Alumni Portal
+        <!-- Profile Icon in the header -->
+        <div class="user-menu" id="user-menu">
+            <div class="profile-icon">P</div> <!-- Custom Profile Icon -->
+            <div class="dropdown" id="dropdown">
+                <a href="#"><span>👤</span> Profile</a>
+                <a href="#"><span>⚙</span> Settings</a>
+                <a href="alumni-student.html"><span>🚪</span> Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <h2>Menu</h2> <!-- Menu Heading -->
+        <a href="al-success-stories.html"><span>🏠</span>Home</a>
+        <a href="student-directory.html"><span>👥</span> Student Directory</a>
+        <a href="alumni-networkinghub.html"><span>🌐</span> Networking Hub</a>
+        <a href="alumni-jobportal.html"><span>💼</span> Job Portal</a>
+        <a href="#"><span>🎓</span>Mentorship</a>
+        <a href="reunion1.html"><span>🎉</span> Reunion</a>
+        <a href="alumni-donation.html"><span>💰</span> Donations</a>
+        <a href="#"><span>💬</span> Feedback</a>
+        <a href="#"><span>❓</span> Help & Support</a>
+        <a href="#"><span>❓</span> Notifications</a>
+    </div>
+
+    <div class="main-content" id="main-content">
+        <h2>Job Portal</h2>
+
+        <div class="buttons">
+            <button id="addJob">Add Job</button>
+        </div>
+
+        <!-- Job Container -->
+        <div class="job-container" id="job-container">
+            <h3>Post a Job</h3>
+            <label for="job-title">Job Title:</label>
+            <input type="text" id="job-title" name="job-title">
+            <label for="company-name">Company Name:</label>
+            <input type="text" id="company-name" name="company-name">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location">
+            <label for="description">Job Description:</label>
+            <!-- <input type="textbox" id="description" name="description"> -->
+             <textarea name="tb" id="" style="height: 250px; width:1400px;" ></textarea>
+            <label for="skills">Skills Required:</label>
+            <input type="text" id="skills" name="skills">
+        </div>
+
+        <div class="buttons">
+            <button id="postJob">Post Job</button> <!-- Initially hidden -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("menu-bar").addEventListener("click", function () {
+            document.getElementById("sidebar").classList.toggle("active");
+            document.getElementById("main-content").classList.toggle("active");
+        });
+
+        document.getElementById("user-menu").addEventListener("click", function () {
+            document.getElementById("user-menu").classList.toggle("active");
+        });
+
+        document.getElementById("addJob").addEventListener("click", function () {
+            document.getElementById("job-container").style.display = "block"; // Show the container
+            document.getElementById("postJob").style.display = "inline-block"; // Show the Post Job button
+        });
+    </script>
+</body>
+
+</html>

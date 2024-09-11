@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentorship Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 28px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-bar {
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #e0e0e0;
+            padding: 20px;
+            color: #333;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: -270px;
+            overflow-y: auto;
+            z-index: 999;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .sidebar h2 {
+            margin-top: 80px;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+
+        .sidebar a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 20px;
+            margin: 10px 0;
+            background-color: #d3d3d3;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover {
+            background-color: #b0bec5;
+            color: #000;
+        }
+
+        .sidebar a span {
+            margin-right: 5px;
+        }
+
+        .main-content {
+            margin-left: 30px;
+            padding: 40px;
+            background-color: white;
+            margin-top: 90px;
+            border-radius: 8px;
+            flex: 1;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: margin-left 0.3s ease;
+            /*min-height: calc(100vh - 100px);*/
+            height: 1200px;
+        }
+
+        .main-content h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .idea-box {
+            margin-bottom: 20px;
+        }
+
+        .idea-box textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            resize: vertical;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .buttons button {
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .buttons button:hover {
+            background-color: #138496;
+        }
+
+        .alumni-list {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        .alumni-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .alumni-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .alumni-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .success-message {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .user-menu {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-menu .profile-icon {
+            background-color: #6c757d;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 30px;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 60px;
+            background-color: white;
+            min-width: 150px;
+            font-size: 16px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .user-menu.active .dropdown {
+            display: block;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .main-content.active {
+            margin-left: 270px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                margin-top: 120px;
+            }
+
+            .main-content.active {
+                margin-left: 0;
+            }
+
+            header {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span class="menu-bar" id="menu-bar">&#9776;</span>
+        Student Mentorship
+        <div class="user-menu" id="user-menu">
+            <div class="profile-icon">P</div>
+            <div class="dropdown" id="dropdown">
+                <a href="#"><span>👤</span> Profile</a>
+                <a href="#"><span>⚙</span> Settings</a>
+                <a href="alumni-student.html"><span>🚪</span> Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <h2>Menu</h2>
+        <a href="std-success-stories.html"><span>🏠</span>Home</a>
+        <a href="alumni-directory.html"><span>👥</span> Alumni Directory</a>
+        <a href="student-networkinghub.html"><span>🌐</span> Networking Hub</a>
+        <a href="alumni-jobportal.html"><span>💼</span> Job Portal</a>
+        <a href="student-mentorship.html"><span>🎓</span> Mentorship</a>
+        <a href="reunion.html"><span>🎉</span> Reunion</a>
+        <a href="student-donation.html"><span>💰</span> Donations</a>
+        <a href="#"><span>📝</span> Feedback</a>
+        <a href="#"><span>❓</span> Help</a>
+        <a href="#"><span>🔔</span> Notifications</a>
+    </div>
+
+    <div class="main-content" id="main-content">
+        <h2>Give Your Idea and Ask for Mentorship</h2>
+        <div class="idea-box">
+            <textarea id="idea" placeholder="Describe your idea or ask for guidance..."></textarea>
+        </div>
+        <div class="buttons">
+            <button id="request-alumni">Request Alumni</button>
+        </div>
+
+        <div class="alumni-list" id="alumni-list">
+            <div class="alumni-item">
+                <img src="./images/alumni1.png.png" alt="Alumni 1">
+                swaroop
+            </div>
+            <div class="alumni-item">
+                <img src="./images/alumni2.png" alt="Alumni 2">
+                Deepak Puppala
+            </div>
+            <div class="alumni-item">
+                <img src="./images/alumni3.jpg" alt="Alumni 3">
+                Ashwin Varma
+            </div>
+            <div class="alumni-item">
+                <img src="./images/alumni4.jpg" alt="Alumni 4">
+                Vaishnavi Dasika
+            </div>
+        </div>
+
+        <div class="buttons" id="mentorship-buttons" style="display: none;">
+            <button id="request-mentorship">Request Mentorship</button>
+        </div>
+
+        <div class="success-message" id="success-message">Mentorship Request Sent Successfully!</div>
+    </div>
+
+    <script>
+        const menuBar = document.getElementById('menu-bar');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+        const userMenu = document.getElementById('user-menu');
+        const dropdown = document.getElementById('dropdown');
+        const requestAlumniBtn = document.getElementById('request-alumni');
+        const alumniList = document.getElementById('alumni-list');
+        const mentorshipButtons = document.getElementById('mentorship-buttons');
+        const successMessage = document.getElementById('success-message');
+
+        menuBar.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('active');
+        });
+
+        userMenu.addEventListener('click', () => {
+            userMenu.classList.toggle('active');
+        });
+
+        // Show alumni list after clicking 'Request Alumni'
+        requestAlumniBtn.addEventListener('click', () => {
+            alumniList.style.display = 'block';
+        });
+
+        // Show 'Request Mentorship' button when an alumni is clicked
+        alumniList.addEventListener('click', (e) => {
+            if (e.target.closest('.alumni-item')) {
+                mentorshipButtons.style.display = 'block';
+            }
+        });
+
+        // Show success message when 'Request Mentorship' is clicked
+        document.getElementById('request-mentorship').addEventListener('click', () => {
+            successMessage.style.display = 'block';
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Light gray background */
+            color: #333;
+            display: flex;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #2c3e50; /* Dark gray-blue */
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 28px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Menu Bar Symbol (Hamburger) */
+        .menu-bar {
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #e0e0e0; /* Light gray background */
+            padding: 20px;
+            color: #333;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: -270px; /* Hide the sidebar initially */
+            overflow-y: auto;
+            z-index: 999;
+            transition: left 0.3s ease; /* Slide-in effect */
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .sidebar h2 {
+            margin-top: 200;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+
+        .sidebar a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 20px 20px;
+            margin: 10px 0;
+            background-color: #d3d3d3; /* Slightly darker gray */
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover {
+            background-color: #b0bec5; /* Muted blue-gray */
+            color: #000;
+        }
+
+        .sidebar a span {
+            margin-right: 5px;
+        }
+
+        .main-content {
+            margin-left: 30px;
+            padding: 40px;
+            background-color: white;
+            margin-top: 90px;
+            border-radius: 8px;
+            height: 900px;
+            flex: 1;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: margin-left 0.3s ease;
+            height: 1200px;
+            /*min-height: calc(100vh - 100px); Adjust content height */
+        }
+
+        .alumni-profile {
+            display: flex;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .alumni-profile img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .alumni-details {
+            flex: 1;
+        }
+
+        .alumni-details h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .alumni-details p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .message-button {
+            background-color: #17a2b8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .message-button:hover {
+            background-color: #138496;
+        }
+
+        /* User Profile Menu */
+        .user-menu {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-menu .profile-icon {
+            background-color: #6c757d; /* Dark gray background */
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 30px;
+        }
+
+        /* Profile Dropdown */
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 60px;
+            background-color: white;
+            min-width: 150px;
+            font-size: 16px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0; /* Light gray */
+        }
+
+        /* Show the dropdown when the user clicks on Profile */
+        .user-menu.active .dropdown {
+            display: block;
+        }
+
+        /* Active Sidebar */
+        .sidebar.active {
+            left: 0; /* Slide in the sidebar */
+        }
+
+        .main-content.active {
+            margin-left: 270px; /* Adjust content margin when sidebar is open */
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                padding: auto;
+                margin-top: 120px;
+            }
+
+            .main-content.active {
+                margin-left: 0;
+            }
+
+            header {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span class="menu-bar" id="menu-bar">&#9776;</span> <!-- Hamburger Menu Symbol -->
+        Student Portal
+        <!-- Profile Icon in the header -->
+        <div class="user-menu" id="user-menu">
+            <div class="profile-icon">P</div> <!-- Custom Profile Icon -->
+            <div class="dropdown" id="dropdown">
+                <a href="#"><span>👤</span> Profile</a>
+                <a href="#"><span>⚙</span> Settings</a>
+                <a href="alumni-student.html"><span>🚪</span> Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <h2>Menu</h2> <!-- Menu Heading -->
+        <a href="al-success-stories.html"><span>🏠</span>Home</a>
+        <a href="student-directory.html"><span>👥</span> Student Directory</a>
+        <a href="alumni-networkinghub.html"><span>🌐</span> Networking Hub</a>
+        <a href="alumni-jobportal.html"><span>💼</span> Job Portal</a>
+        <a href="#"><span>🎓</span>Mentorship</a>
+        <a href="reunion1.html"><span>🎉</span> Reunion</a>
+        <a href="alumni-donation.html"><span>💰</span> Donations</a>
+        <a href="#"><span>📝</span> Feedback</a>
+        <a href="#"><span>❓</span> Help</a>
+        <a href="#"><span>🔔</span> Notifications</a>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content" id="main-content">
+        <div class="alumni-profile">
+            <img src="./images/student1.jpg" alt="Alumni Profile Picture">
+            <div class="alumni-details">
+                <h3>N M S S Praharshitha</h3>
+                <p>Batch: 2023-2026</p>
+                <p>Reg No: 23PA5A0517</p>
+                <p>Branch : CSE</p>
+                <p>Technical Skills:Java, HTML, CSS, JavaScript </p>
+            </div>
+            <button class="message-button">Message</button>
+        </div>
+        <div class="alumni-profile">
+            <img src="./images/student2.jpg" alt="Alumni Profile Picture">
+            <div class="alumni-details">
+                <h3>Mamidi Pavani</h3>
+                <p>Batch: 2022-2026</p>
+                <p>Reg No: 22PA1A0594</p>
+                <p>Branch : CSE</p>
+                <p>Technical Skills:Java, HTML, CSS, JavaScript </p>
+            </div>
+            <button class="message-button">Message</button>
+        </div>
+
+        <div class="alumni-profile">
+            <img src="./images/student3.jpg" alt="Alumni Profile Picture">
+            <div class="alumni-details">
+                <h3>L Sravya Naga Sri</h3>
+                <p>Batch: 2022-2026</p>
+                <p>Reg No: 22PA1A0587</p>
+                <p>Branch : CSE</p>
+                <p>Technical Skills:Java, HTML, CSS, JavaScript </p>
+            </div>
+            <button class="message-button">Message</button>
+        </div>
+
+        <div class="alumni-profile">
+            <img src="./images/student4.jpg" alt="Alumni Profile Picture">
+            <div class="alumni-details">
+                <h3>K Harshith</h3>
+                <p>Batch: 2022-2026</p>
+                <p>Reg No: 22PA1A0575</p>
+                <p>Branch : CSE</p>
+                <p>Technical Skills:Java, HTML, CSS, JavaScript </p>
+            </div>
+            <button class="message-button">Message</button>
+        </div>
+
+        <div class="alumni-profile">
+            <img src="./images/student5.jpg" alt="Alumni Profile Picture">
+            <div class="alumni-details">
+                <h3>K Satish Chandra</h3>
+                <p>Batch: 2022-2026</p>
+                <p>Reg No: 22PA1A0579</p>
+                <p>Branch : CSE</p>
+                <p>Technical Skills:Java, HTML, CSS, JavaScript </p>
+            </div>
+            <button class="message-button">Message</button>
+        </div>
+
+        <div class="alumni-profile">
+            <img src="./images/student6.jpg" alt="Alumni Profile Picture">
+            <div class="alumni-details">
+                <h3>P V Ravindra</h3>
+                <p>Batch: 2022-2026</p>
+                <p>Reg No: 22PA1A05C5</p>
+                <p>Branch : CSE</p>
+                <p>Technical Skills:Java, HTML, CSS, JavaScript </p>
+            </div>
+            <button class="message-button">Message</button>
+        </div>
+
+        
+        <!-- Add more alumni profiles similarly -->
+    </div>
+
+    <script>
+        // JavaScript to toggle sidebar visibility
+        document.getElementById('menu-bar').onclick = function () {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('main-content').classList.toggle('active');
+        }
+
+        // JavaScript to toggle user profile dropdown
+        document.getElementById('user-menu').onclick = function () {
+            document.getElementById('user-menu').classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>
